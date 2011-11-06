@@ -1,8 +1,8 @@
-# Automating tasks with Cloud Hooks
-
 ## What are Cloud Hooks?
 
-The Acquia Cloud Workflow page automates the most common tasks involved in developing a Drupal site: deploying code from a version control system and migrating code, databases, and files across your Development, Staging, and Production environments. Cloud Hooks allow you to automate other tasks as part of these migrations.
+Cloud Hooks is a feature of Acquia Cloud, the Drupal cloud hosting platform. For more information, see https://www.acquia.com/products-services/acquia-dev-cloud.
+
+The Acquia Cloud Workflow page automates the most common tasks involved in developing a Drupal site: deploying code from a version control system, and migrating code, databases, and files across your Development, Staging, and Production environments. Cloud Hooks allow you to automate other tasks as part of these migrations.
 
 A Cloud Hook is simply a script in your code repository that Acquia Cloud executes on your behalf when a triggering action occurs. Examples of tasks that you can automate with Cloud Hooks include:
 
@@ -12,9 +12,9 @@ A Cloud Hook is simply a script in your code repository that Acquia Cloud execut
 
 ## Installing Cloud Hooks
 
-Cloud hooks live in your Acquia Cloud code repository. In each branch of your repo, there is a directory named docroot that contains your site's source code. Cloud hooks live in the directory hooks NEXT TO docroot (not inside of docroot).
+Cloud hooks live in your Acquia Cloud code repository. In each branch of your repo, there is a directory named docroot that contains your site's source code. Cloud hooks live in the directory hooks NEXT TO docroot (not inside of docroot). To install the directory structure and sample hook scripts, simply copy this repo into your Acquia Cloud repo. 
 
-To install the directory structure and sample hook scripts, copy this repo into your Acquia Cloud repo. If you are using Git:
+If you are using Git:
 
     cd /my/repo
     curl -o hooks.tar.gz      https://github.com/acquia/cloud-hooks/tarball/master
@@ -22,33 +22,45 @@ To install the directory structure and sample hook scripts, copy this repo into 
     mv acquia-cloud-hooks-* hooks
     git add hooks
     git commit -m 'Import Cloud hooks directory and sample scripts.'
+    git push
+
+If you are using SVN:
+
+    cd /my/repo
+    curl -o hooks.tar.gz      https://github.com/acquia/cloud-hooks/tarball/master
+    tar xzf acquia-cloud-hooks.tar.gz
+    mv acquia-cloud-hooks-* hooks
+    svn add hooks
+    svn commit -m 'Import Cloud hooks directory and sample scripts.'
 
 ## Quick Start
 
-To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script when new code is deployed in your production environment.
+To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script when new code is deployed in to your Dev environment.
 
 1. Install the hello-world.sh script to run on code deployments to Dev.
 
         cp hooks/samples/hello-world.sh hooks/dev/code-deploy
         git commit -a 'Run the hello-world script on code-deploy to Dev.'
+	git push
 
-2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (you can switch Dev back to whatever it is running easily).
+2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (make a note of what your Dev environment was running first).
 
-3. Scroll down on the Workflow page. When the code deployment task is done, click its "Show" link to see the hook's output.
+3. Scroll down on the Workflow page. When the code deployment task is done, click its "Show" link to see the hook's output. Ta-da!
 
-Ta-da!
+4. Use the Code drop-down list, put your Dev enviroment back to whatever it was previously deploying.
+
 
 ## The Cloud Hooks directory
 
 The hooks directory in your repo has a directory structure like this:
 
-    /hooks / <env> / <hook> / <script>
+    /hooks / [env] / [hook] / [script]
 
-* <env> is a directory whose name is an environment name: 'dev' for Development, 'test' for Staging, and 'prod' for Production. 
+* [env] is a directory whose name is an environment name: 'dev' for Development, 'test' for Staging, and 'prod' for Production. 
 
-* <hook> is a directory whose name is a Cloud Hook name: see below for supported hooks.
+* [hook] is a directory whose name is a Cloud Hook name: see below for supported hooks.
 
-* <script> is a program or shell script within the <env>/<hook> directory.
+* [script] is a program or shell script within the [env]/[hook] directory.
 
 Each time a hookable action occurs, Acquia Cloud runs scripts in the directory for the target environment and specific hook name. All scripts in the hook directory are run, in lexicographical (shell glob) order. If one of the hook scripts exits with non-zero status, the remaining hook scripts are skipped, and the task is marked "failed" on the Workflow page so you know to check it. All stdout and stderr output from all the hooks that ran are displayed in the task log on the Workflow page.
 
