@@ -16,23 +16,23 @@ Cloud hooks live in your Acquia Cloud code repository. In each branch of your re
 
 To install the directory structure and sample hook scripts, copy this repo into your Acquia Cloud repo. If you are using Git:
 
-    $ cd /my/repo
-    $ curl -o hooks.tar.gz      https://github.com/acquia/cloud-hooks/tarball/master
-    $ tar xzf acquia-cloud-hooks.tar.gz
-    $ mv acquia-cloud-hooks-* hooks
-    $ git add hooks
-    $ git commit -m 'Import Cloud hooks directory and sample scripts.'
+    cd /my/repo
+    curl -o hooks.tar.gz      https://github.com/acquia/cloud-hooks/tarball/master
+    tar xzf acquia-cloud-hooks.tar.gz
+    mv acquia-cloud-hooks-* hooks
+    git add hooks
+    git commit -m 'Import Cloud hooks directory and sample scripts.'
 
 ## Quick Start
 
 To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script when new code is deployed in your production environment.
 
-1. Install the hello-world.sh script to run on code deployments to Dev.
+\1. Install the hello-world.sh script to run on code deployments to Dev.
 
-    $ cp hooks/samples/hello-world.sh hooks/dev/code-deploy
-    $ git commit -a 'Run the hello-world script on code-deploy to Dev.'
+    cp hooks/samples/hello-world.sh hooks/dev/code-deploy
+    git commit -a 'Run the hello-world script on code-deploy to Dev.'
 
-2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (you can switch Dev back to whatever it is running easily). 
+ 2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (you can switch Dev back to whatever it is running easily). 
 
 3. Scroll down on the Workflow page. When the code deployment task is done, click its "Show" link to see the hook's output.
 
