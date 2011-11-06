@@ -17,7 +17,7 @@ Cloud hooks live in your Acquia Cloud code repository. In each branch of your re
 If you are using Git:
 
     cd /my/repo
-    curl -o hooks.tar.gz      https://github.com/acquia/cloud-hooks/tarball/master
+    curl -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
     tar xzf acquia-cloud-hooks.tar.gz
     mv acquia-cloud-hooks-* hooks
     git add hooks
@@ -27,7 +27,7 @@ If you are using Git:
 If you are using SVN:
 
     cd /my/repo
-    curl -o hooks.tar.gz      https://github.com/acquia/cloud-hooks/tarball/master
+    curl -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
     tar xzf acquia-cloud-hooks.tar.gz
     mv acquia-cloud-hooks-* hooks
     svn add hooks
@@ -41,14 +41,13 @@ To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script
 
         cp hooks/samples/hello-world.sh hooks/dev/code-deploy
         git commit -a 'Run the hello-world script on code-deploy to Dev.'
-	git push
+        git push
 
 2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (make a note of what your Dev environment was running first).
 
 3. Scroll down on the Workflow page. When the code deployment task is done, click its "Show" link to see the hook's output. Ta-da!
 
-4. Use the Code drop-down list, put your Dev enviroment back to whatever it was previously deploying.
-
+You can use the Code drop-down list to put your Dev enviroment back to whatever it was previously deploying.
 
 ## The Cloud Hooks directory
 
@@ -74,7 +73,7 @@ This section defines the currently supported Cloud Hooks and the command-line ar
 
 ### code-deploy
 
-The code-deploy hook is run whenever you use the Workflow page to deploy new code to environment, either via drag-drop or by selecting an existing branch or tag from the Code drop-down list.
+The code-deploy hook is run whenever you use the Workflow page to deploy new code to an environment, either via drag-drop or by selecting an existing branch or tag from the Code drop-down list.
 
 Usage: code-deploy site target-env source-branch deployed-tag repo-url repo-type
 
@@ -108,7 +107,7 @@ Usage: db-copy site target-env db-name source-env
 
 db-name is not the actual MySQL database name but rather the common name for the database in all environments. Use the drush ah-sql-cli  to connect to the actual MySQL database, or use th drush ah-sql-connect command to convert the site name and target environment into the specific MySQL database name and credentials. (The drush sql-cli and sql-connect commands work too, but only if your Drupal installation is set up correctly.)
 
-Example: You can "scrub" your production database every time it is copied into your Stage environment by putting this script into /hooks/test/db-copy/delete-users.sh:
+Example: To "scrub" your production database by removing all user accounts every time it is copied into your Stage environment, put this script into /hooks/test/db-copy/delete-users.sh:
 
     #!/bin/bash
     site=$1
