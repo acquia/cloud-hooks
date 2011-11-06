@@ -29,10 +29,11 @@ To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script
 
 1. Install the hello-world.sh script to run on code deployments to Dev.
 
-```cp hooks/samples/hello-world.sh hooks/dev/code-deploy
+    cp hooks/samples/hello-world.sh hooks/dev/code-deploy
     git commit -a 'Run the hello-world script on code-deploy to Dev.'
-```
-2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (you can switch Dev back to whatever it is running easily). 
+
+2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (you can switch Dev back to whatever it is running easily).
+
 3. Scroll down on the Workflow page. When the code deployment task is done, click its "Show" link to see the hook's output.
 
 Ta-da!
