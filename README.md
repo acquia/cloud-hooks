@@ -39,8 +39,8 @@ To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script
 
 1. Install the hello-world.sh script to run on code deployments to Dev.
 
-        cp hooks/samples/hello-world.sh hooks/dev/code-deploy
-        git commit -a 'Run the hello-world script on code-deploy to Dev.'
+        cp hooks/samples/hello-world.sh hooks/dev/post-code-deploy
+        git commit -a 'Run the hello-world script on post-code-deploy to Dev.'
         git push
 
 2. Visit the Workflow page in the Acquia Cloud UI. Drag code from your Prod environment to Dev (make a note of what your Dev environment was running first).
@@ -55,13 +55,13 @@ The hooks directory in your repo has a directory structure like this:
 
     /hooks / [env] / [hook] / [script]
 
-* [env] is a directory whose name is an environment name: 'dev' for Development, 'test' for Staging, and 'prod' for Production. 
+* [env] is a directory whose name is an environment name: 'dev' for Development, 'test' for Staging, and 'prod' for Production, as well as 'common' for all environments.
 
 * [hook] is a directory whose name is a Cloud Hook name: see below for supported hooks.
 
 * [script] is a program or shell script within the [env]/[hook] directory.
 
-Each time a hookable action occurs, Acquia Cloud runs scripts in the directory for the target environment and specific hook name. All scripts in the hook directory are run, in lexicographical (shell glob) order. If one of the hook scripts exits with non-zero status, the remaining hook scripts are skipped, and the task is marked "failed" on the Workflow page so you know to check it. All stdout and stderr output from all the hooks that ran are displayed in the task log on the Workflow page.
+Each time a hookable action occurs, Acquia Cloud runs scripts from the directory common/[hook] and [target-env]/[hook]. All scripts in the hook directory are run, in lexicographical (shell glob) order. If one of the hook scripts exits with non-zero status, the remaining hook scripts are skipped, and the task is marked "failed" on the Workflow page so you know to check it. All stdout and stderr output from all the hooks that ran are displayed in the task log on the Workflow page.
 
 ## Sample scripts
 
@@ -71,11 +71,11 @@ The samples directory contains bare-bones example scripts for each of the suppor
 
 This section defines the currently supported Cloud Hooks and the command-line arguments they receive.
 
-### code-deploy
+### post-code-deploy
 
-The code-deploy hook is run whenever you use the Workflow page to deploy new code to an environment, either via drag-drop or by selecting an existing branch or tag from the Code drop-down list.
+The post-code-deploy hook is run whenever you use the Workflow page to deploy new code to an environment, either via drag-drop or by selecting an existing branch or tag from the Code drop-down list.
 
-Usage: code-deploy site target-env source-branch deployed-tag repo-url repo-type
+Usage: post-code-deploy site target-env source-branch deployed-tag repo-url repo-type
 
 * site: The site name. This is the same as the Acquia Cloud username for the site.
 * target-env: The environment to which code was just deployed.
@@ -92,13 +92,13 @@ The meaning of source-branch and deployed-tag depends on whether you use drag-dr
 
 Example: If the Dev environment is deploying the master branch and you drag Dev code to Stage, the code-deploy arguments will be like:
 
-    code-deploy mysite test master tags/2011-11-05 mysite@svn-3.devcloud.hosting.acquia.com:mysite.git git
+    post-code-deploy mysite test master tags/2011-11-05 mysite@svn-3.devcloud.hosting.acquia.com:mysite.git git
 
-### db-copy
+### post-db-copy
 
-The db-copy hook is run whenever you use the Workflow page to copy a database from one environment to another.
+The post-db-copy hook is run whenever you use the Workflow page to copy a database from one environment to another.
 
-Usage: db-copy site target-env db-name source-env
+Usage: post-db-copy site target-env db-name source-env
 
 * site: The site name. This is the same as the Acquia Cloud username for the site.
 * target-env: The environment to which the database was copied.
@@ -107,7 +107,7 @@ Usage: db-copy site target-env db-name source-env
 
 db-name is not the actual MySQL database name but rather the common name for the database in all environments. Use the drush ah-sql-cli  to connect to the actual MySQL database, or use th drush ah-sql-connect command to convert the site name and target environment into the specific MySQL database name and credentials. (The drush sql-cli and sql-connect commands work too, but only if your Drupal installation is set up correctly.)
 
-Example: To "scrub" your production database by removing all user accounts every time it is copied into your Stage environment, put this script into /hooks/test/db-copy/delete-users.sh:
+Example: To "scrub" your production database by removing all user accounts every time it is copied into your Stage environment, put this script into /hooks/test/post-db-copy/delete-users.sh:
 
     #!/bin/bash
     site=$1
@@ -115,11 +115,11 @@ Example: To "scrub" your production database by removing all user accounts every
     db=$3
     echo "DELETE FROM users" | drush @$site.$env ah-sql-cli --db=$db
 
-### files-copy
+### post-files-copy
 
-The files-copy hook is run whenever you use the Workflow page to copy the user-uploaded files directory from one environment to another.
+The post-files-copy hook is run whenever you use the Workflow page to copy the user-uploaded files directory from one environment to another.
 
-Usage: files-copy site target-env source-env
+Usage: post-files-copy site target-env source-env
 
 * site: The site name. This is the same as the Acquia Cloud username for the site.
 * target-env: The environment to which files were copied.
@@ -127,4 +127,4 @@ Usage: files-copy site target-env source-env
 
 Example: When you use the Workflow page to drag files from Prod to Dev, the files-copy hook will be run like:
 
-    files-copy mysite prod dev
+    post-files-copy mysite prod dev
