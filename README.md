@@ -17,8 +17,8 @@ Cloud hooks live in your Acquia Cloud code repository. In each branch of your re
 If you are using Git:
 
     cd /my/repo
-    curl -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
-    tar xzf acquia-cloud-hooks.tar.gz
+    curl -L -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
+    tar xzf hooks.tar.gz
     mv acquia-cloud-hooks-* hooks
     git add hooks
     git commit -m 'Import Cloud hooks directory and sample scripts.'
@@ -27,8 +27,8 @@ If you are using Git:
 If you are using SVN:
 
     cd /my/repo
-    curl -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
-    tar xzf acquia-cloud-hooks.tar.gz
+    curl -L -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
+    tar xzf hooks.tar.gz
     mv acquia-cloud-hooks-* hooks
     svn add hooks
     svn commit -m 'Import Cloud hooks directory and sample scripts.'
