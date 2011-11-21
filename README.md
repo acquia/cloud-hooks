@@ -37,8 +37,10 @@ If you are using SVN:
 
 To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script when new code is deployed in to your Dev environment.
 
-1. Install the hello-world.sh script to run on code deployments to Dev.
+1. Install the hello-world.sh script to run on code deployments to Dev. *This example assumes your Dev environment is running the 'master' branch*.
 
+        cd /my/repo
+        git checkout master
         cp hooks/samples/hello-world.sh hooks/dev/post-code-deploy
         git commit -a 'Run the hello-world script on post-code-deploy to Dev.'
         git push
