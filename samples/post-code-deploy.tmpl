@@ -1,14 +1,14 @@
 #!/bin/sh
 #
-# Cloud Hook: code-deploy
+# Cloud Hook: post-code-deploy
 #
-# The code-deploy hook is run whenever you use the Workflow page to 
+# The post-code-deploy hook is run whenever you use the Workflow page to 
 # deploy new code to an environment, either via drag-drop or by selecting
 # an existing branch or tag from the Code drop-down list. See 
-# ../README.markdown for details.
+# ../README.md for details.
 #
-# Usage: code-deploy site target-env source-branch deployed-tag repo-url 
-#                    repo-type
+# Usage: post-code-deploy site target-env source-branch deployed-tag repo-url 
+#                         repo-type
 
 site="$1"
 target_env="$2"

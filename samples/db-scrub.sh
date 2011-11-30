@@ -4,7 +4,7 @@
 #
 # Scrub important information from a Drupal database.
 #
-# Usage: db-copy site target-env db-name source-env
+# Usage: db-scrub.sh site target-env db-name source-env
 
 site="$1"
 target_env="$2"
