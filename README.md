@@ -56,8 +56,8 @@ To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script
         Deploying master on s1.dev
         [05:28:33] Starting hook: post-code-deploy
         Executing: /var/www/html/s1.dev/hooks/dev/post-code-deploy/hello-world.sh s1 dev master master s1@svn-3.bjaspan.hosting.acquia.com:s1.git git (as s1@srv-4)
-	Hello, Cloud!
-	[05:28:34] Finished hook: post-code-deploy
+        Hello, Cloud!
+        [05:28:34] Finished hook: post-code-deploy
 
 You can use the Code drop-down list to put your Dev enviroment back to whatever it was previously deploying.
 
