@@ -19,7 +19,7 @@ echo "$site.$target_env: Scrubbing database $db_name"
 -- 
 
 -- Remove all email addresses.
-UPDATE users SET mail=CONCAT('user', uid, '@example.com') WHERE uid != 0;
+UPDATE users SET mail=CONCAT('user', uid, '@example.com'), init=CONCAT('user', uid, '@example.com') WHERE uid != 0;
 
 -- Example: Disable a module by setting its system.status value to 0.
 -- UPDATE system SET status = 0 WHERE name = 'securepages';
