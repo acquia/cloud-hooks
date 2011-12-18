@@ -86,6 +86,7 @@ Sample scripts currently include:
 * post-files-copy.tmpl: Template for post-files-copy hook scripts.
 * update-db.sh: Run drush updatedb to perform database updates.
 * db-scrub.sh: Scrub important information from a Drupal database.
+* drupal-tests.sh: Run Drupal simpletests.
 
 ## Supported hooks
 
