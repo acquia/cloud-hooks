@@ -75,6 +75,19 @@ The hooks directory in your repo has a directory structure like this:
 
 Each time a hookable action occurs, Acquia Cloud runs scripts from the directory common/[hook] and [target-env]/[hook]. All scripts in the hook directory are run, in lexicographical (shell glob) order. If one of the hook scripts exits with non-zero status, the remaining hook scripts are skipped, and the task is marked "failed" on the Workflow page so you know to check it. All stdout and stderr output from all the hooks that ran are displayed in the task log on the Workflow page.
 
+Note that hook scripts must have the Unix "executable" bit in order to run. If your script has the execute bit set when you first add it to Git or SVN, you're all set. Otherwise, to set the execute bit to a file already in your Git repo:
+
+    chmod a+x ./my-hook.sh
+    git add ./my-hook.sh
+    git commit -m 'Add execute bit to my-hook.sh'
+    git push
+
+If you are using SVN:
+
+    chmod a+x ./my-hook.sh
+    svn propset svn:executable ON ./my-hook.sh
+    svn commit -m 'Add execute bit to my-hook.sh'    
+
 ## Sample scripts
 
 The samples directory contains bare-bones example scripts for each of the supported hooks, plus a variety of useful user-contributed scripts. Each script starts with comments explaining what it is for and how it works.
