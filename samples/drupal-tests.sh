@@ -2,21 +2,15 @@
 #
 # Cloud Hook: drupal-tests
 #
-# Run Drupal simpletests in the target environment.
+# Run Drupal simpletests in the target environment using drush test-run.
 
 site="$1"
 target_env="$2"
 
-# Select the tests to run. See Drupal's scripts/run-test.sh for options.
-TESTS="--class DatabaseConnectionTestCase"
-# Uncomment to run all tests.
-# TESTS=--all
-
-# Change this only if you need to use a settings.php other than sites/default.
-URL=http://localhost/
-
-# Uncomment to show verbose test output.
-VERBOSE=--verbose
+# Select the tests to run. Run "drush help test-run" for options.
+TESTS="UserRegistrationTestCase"
+# To run all tests (very slow!), uncomment this line.
+TESTS="--all"
 
 # Enable the simpletest module if it is not already enabled.
 simpletest=`drush @$site.$target_env pm-info simpletest | perl -F'/[\s:]+/' -lane '/Status/ && print $F[2]'`
@@ -26,8 +20,7 @@ if [ "$simpletest" = "disabled" ]; then
 fi
 
 # Run the tests.
-cd /var/www/html/$site.$target_env/docroot
-php ./scripts/run-tests.sh --url $URL $VERBOSE $TESTS
+drush @$site.$target_env test-run $TESTS
 
 # If we enabled simpletest, disable it.
 if [ "$simpletest" = "disabled" ]; then
