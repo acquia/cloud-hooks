@@ -47,9 +47,8 @@ if [ $? != 0 ]; then {
   
  #simpletests passed! Inform user then clear and set rollback_settings to new code base
  echo "Testing passed on deploy of $deployedtag"
- touch $PWD/rollback_settings
  echo  "origsource='$deployedtag'"> $PWD/rollback_settings
- echo  "TESTS='$TESTS'"> $PWD/rollback_settings
+ echo  "TESTS='$TESTS'">> $PWD/rollback_settings
 
  extcode=0
 
