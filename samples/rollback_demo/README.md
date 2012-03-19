@@ -10,7 +10,8 @@ Installation Steps (assumes ah cloud hooks installed in Version Control Software
 
 * Copy rollback.sh into your dev, stage, prod, or common hooks directory.
 * SCP or SFTP rollback_settings to your $HOME dir on your Acquia Host Server. 
-* Edit rollback_settings to your existing code base (ORIGSOURCE), test setting (TEST) and number of attempts (ATTEMPTS). Ensure execute bits are set on both files. (i.e. chmod a+x rollback_settings and chmod a+x rollback.sh)
+* $TEST settings are available SimpleTests (or core Testing module in D7+). You may use '--all' for all tests (very slow). See http://drupal.org/simpletest for details.
+* Edit rollback_settings to your existing code base ($ORIGSOURCE), test setting ($TEST) and number of attempts ($ATTEMPTS). Ensure execute bits are set on both files. (i.e. chmod a+x rollback_settings and chmod a+x rollback.sh)
 
   
 
