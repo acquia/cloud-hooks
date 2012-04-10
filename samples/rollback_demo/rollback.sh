@@ -33,8 +33,9 @@ if [ "$ATTEMPTS" -le 0  ]; then
 fi
 
 #now set the variable and append it into the settings file. 
-let "ATTEMPS-=1"
-echo  "ATTEMPS=$ATTEMPS">> $HOME/rollback_settings
+ORIGATTEMPTS=$ATTEMPTS
+let "ATTEMPTS-=1"
+sed -i "s/ATTEMPTS=$ORIGATTEMPTS/ATTEMPTS=$ATTEMPTS/" $HOME/rollback_settings
 
 #initialize exit code so we can exit with 0 after rollback
 extcode=0
@@ -69,10 +70,7 @@ else
   
   #simpletests passed! Inform user then clear and set rollback_settings to new code base
   echo  "Testing passed on deploy of $deployedtag"
-  echo  "ORIGSOURCE='$deployedtag'"> $HOME/rollback_settings
-  echo  "TESTS='$TESTS'">> $HOME/rollback_settings
-  echo  "ATTEMPS=$ATTEMPS">> $HOME/rollback_settings
-
+  sed -i "s/ORIGSOURCE=$ORIGSOURCE/ORIGSOURCE=$deployedtag/" $HOME/rollback_settings
   extcode=0
 
 fi
