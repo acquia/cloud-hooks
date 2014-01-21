@@ -19,10 +19,7 @@ $source = $argv[4];
  
 // First ensure the domain module is installed. We do this by checking
 // existence of the domain table in the appropriate database.
-$domain = `(cat << EOF
-SHOW TABLES LIKE 'domain';
-EOF
-) | drush @$site.$env ah-sql-cli --db=$db`;
+$domain=`echo "SHOW TABLES LIKE 'domain'" | drush @$site.$env ah-sql-cli --db=$db"`;
  
 if (!$domain) {
   $returns[] = "Domain module not installed, aborting";
@@ -56,11 +53,7 @@ else {
     if (isset($info[$env])) {
       $to = $info[$env];
       $returns[] = "Updating domain table to update $domain to $to";
-      `(cat << EOF
-UPDATE domain SET subdomain = "$to" where machine_name = "$domain";
-EOF
-) | drush @$site.$env ah-sql-cli --db=$db`;
- 
+      echo "UPDATE domain SET subdomain = "$to" where machine_name = "$domain" | drush @$site.$env ah-sql-cli --db=$db";
     }
   }
 }
