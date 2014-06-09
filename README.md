@@ -165,3 +165,15 @@ Usage: post-files-copy site target-env source-env
 Example: When you use the Workflow page to drag files from Prod to Dev, the files-copy hook will be run like:
 
     post-files-copy mysite prod dev
+
+### initial-site-deploy
+
+The initial-site-deploy hook is run the first time a site is deployed on a server.
+
+Usage: initial-site-deploy site target-env
+
+* site: The site name. This is the same as the Acquia Cloud username for the site.
+* target-env: The environment the site is deployed on.
+
+This hook is a good time to carry out one-time set up tasks for your site when it is first deployed on a server. For example, if you need to set up firewall rules for the site with the server's IP address.
+
