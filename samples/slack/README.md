@@ -1,4 +1,4 @@
-#Example of Acquia Hosting Cloud Hook to notify Slack of deployments
+#Example of Acquia Cloud Hook to notify Slack of deployments
 
 Installation Steps (assumes Slack subscription setup and Acquia Cloud Hooks installed in repo):
 
