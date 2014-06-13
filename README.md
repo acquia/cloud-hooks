@@ -100,6 +100,9 @@ Sample scripts currently include:
 * update-db.sh: Run drush updatedb to perform database updates.
 * db-scrub.sh: Scrub important information from a Drupal database.
 * drupal-tests.sh: Run Drupal simpletests.
+* rollback.sh: Run designated simpletest testing againsts a branch/tag and rollback on failure.
+* newrelic.sh: Example of Acquia Hosting Cloud Hook to notify New Relic API of code version deployments. 
+
 
 ## Supported hooks
 

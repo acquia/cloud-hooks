@@ -1,4 +1,4 @@
-#Example of Acquia Hosting Cloud Hook to notify New Relic API of code version deployments
+# Example of Acquia Cloud Hook to notify New Relic API of code version deployments
 
 Installation Steps (assumes New Relic subscription setup and Acquia Cloud Hooks installed in repo):
 
