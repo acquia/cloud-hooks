@@ -166,11 +166,12 @@ Example: When you use the Workflow page to drag files from Prod to Dev, the file
 
     post-files-copy mysite prod dev
 
-### initial-site-deploy
+### pre-web-activate
 
-The initial-site-deploy hook is run the first time a site is deployed on a server.
+The pre-web-activate hook is run the first time a site is deployed on a server,
+and before the server starts recieving traffic for that site.
 
-Usage: initial-site-deploy site target-env
+Usage: pre-web-activate site target-env
 
 * site: The site name. This is the same as the Acquia Cloud username for the site.
 * target-env: The environment the site is deployed on.
