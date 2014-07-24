@@ -21,9 +21,12 @@ fi
 
 # Run the tests.
 drush @$site.$target_env test-run $TESTS
+status=$?
 
 # If we enabled simpletest, disable it.
 if [ "$simpletest" = "disabled" ]; then
     echo "Disabling simpletest module."
     drush @$site.$target_env pm-disable simpletest --yes
 fi
+
+exit $status

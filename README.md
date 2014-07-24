@@ -110,7 +110,7 @@ This section defines the currently supported Cloud Hooks and the command-line ar
 
 ### post-code-deploy
 
-The post-code-deploy hook is run whenever you use the Workflow page to deploy new code to an environment, either via drag-drop or by selecting an existing branch or tag from the Code drop-down list.
+The post-code-deploy hook is run whenever you use the Workflow page to deploy new code to an environment, either via drag-drop or by selecting an existing branch or tag from the Code drop-down list. (The post-code-update hook runs after every code commit.)
 
 Usage: post-code-deploy site target-env source-branch deployed-tag repo-url repo-type
 
@@ -130,6 +130,14 @@ The meaning of source-branch and deployed-tag depends on whether you use drag-dr
 Example: If the Dev environment is deploying the master branch and you drag Dev code to Stage, the code-deploy arguments will be like:
 
     post-code-deploy mysite test master tags/2011-11-05 mysite@svn-3.devcloud.hosting.acquia.com:mysite.git git
+
+### post-code-update
+
+The post-code-update hook runs in response to code commits. When you push commits to a Git branch, the post-code-update hooks runs for each environment that is currently running that branch.
+
+The arguments for post-code-update are the same as for post-code-deploy, with the source-branch and deployed-tag arguments both set to the name of the environment receiving the new code.
+
+post-code-update only runs if your site is using a Git repository. It does not support SVN.
 
 ### post-db-copy
 
@@ -165,16 +173,3 @@ Usage: post-files-copy site target-env source-env
 Example: When you use the Workflow page to drag files from Prod to Dev, the files-copy hook will be run like:
 
     post-files-copy mysite prod dev
-
-### pre-web-activate
-
-The pre-web-activate hook is run the first time a site is deployed on a server,
-and before the server starts recieving traffic for that site.
-
-Usage: pre-web-activate site target-env
-
-* site: The site name. This is the same as the Acquia Cloud username for the site.
-* target-env: The environment the site is deployed on.
-
-This hook is a good time to carry out one-time set up tasks for your site when it is first deployed on a server. For example, if you need to set up firewall rules for the site with the server's IP address.
-
