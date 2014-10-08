@@ -18,9 +18,9 @@ repo_url="$5"
 repo_type="$6"
 
 
-if [ "$target_env" = 'dev' ]; then
+if [ "$target_env" != 'prod' ]; then
     echo "$site.$target_env: The $source_branch branch has been updated on $target_env. Clearing the cache."
-    drush @$site.dev cc all
+    drush @$site.$target_env cc all
 else
     echo "$site.$target_env: The $source_branch branch has been updated on $target_env."
 fi
