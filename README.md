@@ -95,6 +95,7 @@ The samples directory contains bare-bones example scripts for each of the suppor
 Sample scripts currently include:
 
 * post-code-deploy.tmpl: Template for post-code-deploy hook scripts.
+* post-code-update.tmpl: Template for post-code-update hook scripts.
 * post-db-copy.tmpl: Template for post-db-copy hook scripts.
 * post-files-copy.tmpl: Template for post-files-copy hook scripts.
 * update-db.sh: Run drush updatedb to perform database updates.
