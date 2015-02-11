@@ -13,4 +13,4 @@ repotype=$6     # The version control system your site is using; "git" or "svn".
 #Load the New Relic APPID and APPKEY variables.
 . $HOME/newrelic_settings
 
-curl -s -H "x-api-key:$APIKEY" -d "deployment[application_id]=$APPID" -d "deployment[host]=localhost" -d "deployment[description]=$deployedtag deployed to $site:$targetenv" -d "deployment[revision]=$deployedtag" -d "deployment[changelog]=$deployedtag deployed to $site:$targetenv" -d "deployment[user]=$username"  https://rpm.newrelic.com/deployments.xml
+curl -s -H "x-api-key:$APIKEY" -d "deployment[application_id]=$APPID" -d "deployment[host]=localhost" -d "deployment[description]=$deployedtag deployed to $site:$targetenv" -d "deployment[revision]=$deployedtag" -d "deployment[changelog]=$deployedtag deployed to $site:$targetenv" -d "deployment[user]=$username"  https://api.newrelic.com/deployments.xml
