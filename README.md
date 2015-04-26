@@ -12,7 +12,7 @@ A Cloud Hook is simply a script in your code repository that Acquia Cloud execut
 
 ## Installing Cloud Hooks
 
-Cloud hook scripts live in your Acquia Cloud code repository. In each branch of your repo, there is a directory named docroot that contains your site's source code. Cloud hooks live in the directory hooks NEXT TO docroot (not inside of docroot). 
+Cloud hook scripts live in your Acquia Cloud code repository. In each branch of your repo, there is a directory named docroot that contains your site's source code. Cloud hooks live in the directory hooks NEXT TO docroot (not inside of docroot).
 
 To install the correct directory structure and sample hook scripts, simply copy this repo into your Acquia Cloud repo.
 
@@ -59,7 +59,7 @@ To get an idea of the power of Cloud Hooks, let's run the "Hello, Cloud!" script
         Hello, Cloud!
         [05:28:34] Finished hook: post-code-deploy
 
-You can use the Code drop-down list to put your Dev enviroment back to whatever it was previously deploying.
+You can use the Code drop-down list to put your Dev environment back to whatever it was previously deploying.
 
 ## The Cloud Hooks directory
 
@@ -86,7 +86,7 @@ If you are using SVN:
 
     chmod a+x ./my-hook.sh
     svn propset svn:executable ON ./my-hook.sh
-    svn commit -m 'Add execute bit to my-hook.sh'    
+    svn commit -m 'Add execute bit to my-hook.sh'
 
 ## Sample scripts
 
@@ -100,8 +100,8 @@ Sample scripts currently include:
 * update-db.sh: Run drush updatedb to perform database updates.
 * db-scrub.sh: Scrub important information from a Drupal database.
 * drupal-tests.sh: Run Drupal simpletests.
-* rollback.sh: Run designated simpletest testing againsts a branch/tag and rollback on failure.
-* newrelic.sh: Example of Acquia Hosting Cloud Hook to notify New Relic API of code version deployments. 
+* rollback.sh: Run designated simpletest testing against a branch/tag and rollback on failure.
+* newrelic.sh: Example of Acquia Hosting Cloud Hook to notify New Relic API of code version deployments.
 
 
 ## Supported hooks
@@ -119,7 +119,7 @@ Usage: post-code-deploy site target-env source-branch deployed-tag repo-url repo
 * source-branch: The code branch or tag being deployed. See below.
 * deployed-tag: The code branch or tag being deployed. See below.
 * repo-url: The URL of your code repository.
-* repo-type: The version control system your site is uing; "git" or "svn".
+* repo-type: The version control system your site is using; "git" or "svn".
 
 The meaning of source-branch and deployed-tag depends on whether you use drag-drop to move code from one environment to another or whether you select a new branch or tag for an environment from the Code drop-down list:
 
@@ -142,7 +142,7 @@ Usage: post-db-copy site target-env db-name source-env
 * db-name: The name of the database that was copied. See below.
 * source-env: The environment from which the database was copied.
 
-db-name is not the actual MySQL database name but rather the common name for the database in all environments. Use the drush ah-sql-cli  to connect to the actual MySQL database, or use th drush ah-sql-connect command to convert the site name and target environment into the specific MySQL database name and credentials. (The drush sql-cli and sql-connect commands work too, but only if your Drupal installation is set up correctly.)
+db-name is not the actual MySQL database name but rather the common name for the database in all environments. Use the drush ah-sql-cli  to connect to the actual MySQL database, or use the drush ah-sql-connect command to convert the site name and target environment into the specific MySQL database name and credentials. (The drush sql-cli and sql-connect commands work too, but only if your Drupal installation is set up correctly.)
 
 Example: To "scrub" your production database by removing all user accounts every time it is copied into your Stage environment, put this script into /hooks/test/post-db-copy/delete-users.sh:
 
