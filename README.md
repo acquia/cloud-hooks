@@ -2,7 +2,7 @@
 
 Cloud Hooks is a feature of Acquia Cloud, the Drupal cloud hosting platform. For more information, see https://www.acquia.com/products-services/acquia-dev-cloud.
 
-The Acquia Cloud Workflow page automates the most common tasks involved in developing a Drupal site: deploying code from a version control system, and migrating code, databases, and files across your Development, Staging, and Production environments. Cloud Hooks allow you to automate other tasks as part of these migrations.
+The Acquia Cloud Workflow page automates the most common tasks involved in developing a Drupal site: deploying code from a version control system, and migrating code, databases, and files across your Development, Staging, Remote Administration, and Production environments. Cloud Hooks allow you to automate other tasks as part of these migrations.
 
 A Cloud Hook is simply a script in your code repository that Acquia Cloud executes on your behalf when a triggering action occurs. Examples of tasks that you can automate with Cloud Hooks include:
 
@@ -67,7 +67,7 @@ The hooks directory in your repo has a directory structure like this:
 
     /hooks / [env] / [hook] / [script]
 
-* [env] is a directory whose name is an environment name: 'dev' for Development, 'test' for Staging, and 'prod' for Production, as well as 'common' for all environments.
+* [env] is a directory whose name is an environment name: 'dev' for Development, 'test' for Staging, 'ra' for Remote Administration, and 'prod' for Production, as well as 'common' for all environments.
 
 * [hook] is a directory whose name is a Cloud Hook name: see below for supported hooks.
 
