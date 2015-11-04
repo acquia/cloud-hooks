@@ -1,0 +1,10 @@
+{
+  "name": "acquia/cloud-hooks",
+  "license": "proprietary",
+  "description": "Cloud Hooks is a feature of Acquia Cloud, the Drupal cloud hosting platform.",
+  "authors": [
+    {
+      "name": "Barry Jaspan"
+    }
+  ]
+}
