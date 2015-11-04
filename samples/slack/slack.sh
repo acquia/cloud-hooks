@@ -21,4 +21,9 @@ repo_type="$6"
 . $HOME/slack_settings
 
 # Post deployment notice to Slack
-curl -X POST --data-urlencode "payload={\"channel\": \"#development\", \"username\": \"Acquia Cloud\", \"text\": \"A new deployment has been made to *$target_env* using tag *$deployed_tag*.\", \"icon_emoji\": \":information_source:\"}" $SLACK_WEBHOOK_URL
+
+if [ "$source_branch" != "$deployed_tag" ]; then
+  curl -X POST --data-urlencode "payload={\"channel\": \"#your_channel\", \"username\": \"Acquia Cloud\", \"text\": \"An updated deployment has been made to *$site.$target_env* using branch *$source_branch* as *$deployed_tag*.\", \"icon_emoji\": \":acquiacloud:\"}" $SLACK_WEBHOOK_URL
+else
+  curl -X POST --data-urlencode "payload={\"channel\": \"#your_channel\", \"username\": \"Acquia Cloud\", \"text\": \"An updated deployment has been made to *$site.$target_env* using tag *$deployed_tag*.\", \"icon_emoji\": \":acquiacloud:\"}" $SLACK_WEBHOOK_URL
+fi
