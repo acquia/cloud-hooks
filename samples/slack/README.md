@@ -1,9 +1,20 @@
-#Example of Acquia Cloud Hook to notify Slack of deployments
+# Slack Notification
+
+This cloud hook posts a notification to Slack chat room after a code deployment
+has been performed on Acquia Cloud.
+
+### Example Scenario
+
+1. A new tag is deployed to the production environment.
+2. A slack notification is posted indicating that a tag has been deployed.
+
+### Installation Steps
 
 Installation Steps (assumes Slack subscription setup and Acquia Cloud Hooks installed in repo):
 
-* Login to Slack and click the "Integrations" link in the header
-* Follow the instructions and make note of "Your Unique Webhook URL." Store this URL in $HOME/slack_settings file on your Acquia Cloud Server (see example file).
-* Set the execution bit to on i.e. chmod a+x slack_settings
-* Add slack.sh to dev, test, prod or common post-cody-deploy hook.
+* See the API documentation at https://api.slack.com/ get your `TOKEN`.
+* Store this variable in `$HOME/slack_settings` file on your Acquia Cloud Server (see slack_settings file).
+* Set the execution bit to on e.g. `chmod a+x slack_settings`
+* Add `slack.sh` to dev, test, prod or common __post-cody-deploy__ hook.
+
 
