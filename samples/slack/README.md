@@ -12,9 +12,8 @@ has been performed on Acquia Cloud.
 
 Installation Steps (assumes Slack subscription setup and Acquia Cloud Hooks installed in repo):
 
-* See the API documentation at https://api.slack.com/ get your `TOKEN`.
-* Store this variable in `$HOME/slack_settings` file on your Acquia Cloud Server (see slack_settings file).
-* Set the execution bit to on e.g. `chmod a+x slack_settings`
-* Add `slack.sh` to dev, test, prod or common __post-cody-deploy__ hook.
+* See the API documentation at https://api.slack.com/ to set up an Incoming Webhook.
+* Store the webhook URL in `$HOME/slack_settings` file on your Acquia Cloud Server (see slack_settings file).
+* Add `slack.sh` to dev, test, prod or common __post-cody-deploy__ and __post-code-update__ hooks.
 
 
