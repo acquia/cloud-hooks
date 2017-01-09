@@ -14,6 +14,6 @@ Installation Steps (assumes Slack subscription setup and Acquia Cloud Hooks inst
 
 * See the API documentation at https://api.slack.com/ to set up an Incoming Webhook.
 * Store the webhook URL in `$HOME/slack_settings` file on your Acquia Cloud Server (see slack_settings file).
-* Add `slack.sh` to dev, test, prod or common __post-cody-deploy__ and __post-code-update__ hooks.
+* Add `slack.sh` to dev, test, prod or common __post-code-deploy__ and __post-code-update__ hooks.
 
 
