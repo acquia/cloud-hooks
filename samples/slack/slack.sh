@@ -17,13 +17,19 @@ deployed_tag="$4"
 repo_url="$5"
 repo_type="$6"
 
-# Load the Slack webhook URL (which is not stored in this repo).
-. $HOME/slack_settings
+FILE=$HOME/slack_settings
 
-# Post deployment notice to Slack
+if [ -f $FILE ]; then
+  # Load the Slack webhook URL (which is not stored in this repo).
+  . $HOME/slack_settings
 
-if [ "$source_branch" != "$deployed_tag" ]; then
-  curl -X POST --data-urlencode "payload={\"channel\": \"#your_channel\", \"username\": \"Acquia Cloud\", \"text\": \"An updated deployment has been made to *$site.$target_env* using branch *$source_branch* as *$deployed_tag*.\", \"icon_emoji\": \":acquiacloud:\"}" $SLACK_WEBHOOK_URL
+  # Post deployment notice to Slack
+
+  if [ "$source_branch" != "$deployed_tag" ]; then
+    curl -X POST --data-urlencode "payload={\"username\": \"Acquia Cloud\", \"text\": \"An updated deployment has been made to *$site.$target_env* using branch *$source_branch* as *$deployed_tag*.\", \"icon_emoji\": \":acquiacloud:\"}" $SLACK_WEBHOOK_URL
+  else
+    curl -X POST --data-urlencode "payload={\"username\": \"Acquia Cloud\", \"text\": \"An updated deployment has been made to *$site.$target_env* using tag *$deployed_tag*.\", \"icon_emoji\": \":acquiacloud:\"}" $SLACK_WEBHOOK_URL
+  fi
 else
-  curl -X POST --data-urlencode "payload={\"channel\": \"#your_channel\", \"username\": \"Acquia Cloud\", \"text\": \"An updated deployment has been made to *$site.$target_env* using tag *$deployed_tag*.\", \"icon_emoji\": \":acquiacloud:\"}" $SLACK_WEBHOOK_URL
+  echo "File $FILE does not exist."
 fi
