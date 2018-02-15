@@ -17,6 +17,11 @@ deployed_tag="$4"
 repo_url="$5"
 repo_type="$6"
 
+# Do not proceed on the RA environment 
+if [ "$target_env" == "ra" ]; then 
+exit 
+fi
+
 # Load the HipChat webhook URL (which is not stored in this repo).
 . $HOME/hipchat_settings
 

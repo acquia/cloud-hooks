@@ -20,6 +20,11 @@ deployed_tag="$4"
 repo_url="$5"
 repo_type="$6"
 
+# Do not proceed on the RA environment 
+if [ "$target_env" == "ra" ]; then 
+exit 
+fi
+
 if [ "$source_branch" != "$deployed_tag" ]; then
     MSG="$site.$target_env: Deployed branch $source_branch as $deployed_tag."
 else

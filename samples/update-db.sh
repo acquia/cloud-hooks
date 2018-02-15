@@ -8,4 +8,9 @@
 site="$1"
 target_env="$2"
 
+# Do not proceed on the RA environment 
+if [ "$target_env" == "ra" ]; then 
+exit 
+fi
+
 drush @$site.$target_env updatedb --yes
