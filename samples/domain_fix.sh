@@ -16,6 +16,11 @@ $site = $argv[1];
 $env = $argv[2];
 $db = $argv[3];
 $source = $argv[4];
+
+// Do not proceed on the RA environment 
+if [ "$target_env" == "ra" ]; then 
+exit 
+fi
  
 // First ensure the domain module is installed. We do this by checking
 // existence of the domain table in the appropriate database.

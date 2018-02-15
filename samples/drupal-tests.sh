@@ -7,6 +7,11 @@
 site="$1"
 target_env="$2"
 
+# Do not proceed on the RA environment 
+if [ "$target_env" == "ra" ]; then 
+exit 
+fi
+
 # Select the tests to run. Run "drush help test-run" for options.
 TESTS="UserRegistrationTestCase"
 # To run all tests (very slow!), uncomment this line.

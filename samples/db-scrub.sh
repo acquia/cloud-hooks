@@ -11,6 +11,11 @@ target_env="$2"
 db_name="$3"
 source_env="$4"
 
+# Do not proceed on the RA environment 
+if [ "$target_env" == "ra" ]; then 
+exit 
+fi
+
 echo "$site.$target_env: Scrubbing database $db_name"
 
 (cat <<EOF

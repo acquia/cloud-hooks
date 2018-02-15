@@ -12,4 +12,9 @@ site="$1"
 target_env="$2"
 source_env="$3"
 
+# Do not proceed on the RA environment 
+if [ "$target_env" == 'ra' ]; then 
+exit 
+fi
+
 echo "$site.$target_env: Received copy of files from $source_env."

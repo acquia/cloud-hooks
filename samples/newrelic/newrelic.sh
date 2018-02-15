@@ -9,6 +9,10 @@ deployedtag=$4  # The code branch or tag being deployed.
 repourl=$5      # The URL of your code repository.
 repotype=$6     # The version control system your site is using; "git" or "svn".
 
+# Do not proceed on the RA environment 
+if [ "$target_env" == "ra" ]; then 
+exit 
+fi
 
 #Load the New Relic APPID and APPKEY variables.
 . $HOME/newrelic_settings
