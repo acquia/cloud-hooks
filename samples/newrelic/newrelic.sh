@@ -14,15 +14,15 @@ repotype=$6     # The version control system your site is using; "git" or "svn".
 . $HOME/newrelic_settings
 
 #https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/recording-deployments#post-deployment
-curl -X POST 'https://api.newrelic.com/v2/applications/$APPID/deployments.json' \
-     -H 'X-Api-Key:$APIKEY' -i \
-     -H 'Content-Type: application/json' \
+curl -X POST "https://api.newrelic.com/v2/applications/$APPID/deployments.json" \
+     -H "X-Api-Key:$APIKEY" -i \
+     -H "Content-Type: application/json" \
      -d \
-'{
-  "deployment": {
-    "revision": "$deployedtag",
-    "changelog": "$deployedtag deployed to $site:$targetenv",
-    "description": "$deployedtag deployed to $site:$targetenv",
-    "user": "$username"
+"{
+  \"deployment\": {
+    \"revision\": \"$deployedtag\",
+    \"changelog\": \"$deployedtag deployed to $site.$targetenv\",
+    \"description\": \"$deployedtag deployed to $site.$targetenv\",
+    \"user\": \"$username\"
   }
-}'
+}"
