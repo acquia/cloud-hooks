@@ -1,0 +1,9 @@
+{
+    "name": "acquia/cloud-hooks",
+    "description": "Acquia Cloud hook scripts and documentation",
+    "homepage": "https://github.com/acquia/cloud-hooks",
+    "license": "GPL-2.0-only",
+    "require": {
+        "oomphinc/composer-installers-extender": "^1.1"
+    }
+}
