@@ -16,8 +16,6 @@ Cloud hook scripts live in your Acquia Cloud code repository. In each branch of 
 
 To install the correct directory structure and sample hook scripts, simply copy this repo into your Acquia Cloud repo.
 
-If you are using Git:
-
     cd /my/repo
     curl -L -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
     tar xzf hooks.tar.gz
@@ -25,15 +23,6 @@ If you are using Git:
     git add hooks
     git commit -m 'Import Cloud hooks directory and sample scripts.'
     git push
-
-If you are using SVN:
-
-    cd /my/repo
-    curl -L -o hooks.tar.gz https://github.com/acquia/cloud-hooks/tarball/master
-    tar xzf hooks.tar.gz
-    mv acquia-cloud-hooks-* hooks
-    svn add hooks
-    svn commit -m 'Import Cloud hooks directory and sample scripts.'
 
 ## Quick Start
 
@@ -75,18 +64,13 @@ The hooks directory in your repo has a directory structure like this:
 
 Each time a hookable action occurs, Acquia Cloud runs scripts from the directory common/[hook] and [target-env]/[hook]. All scripts in the hook directory are run, in lexicographical (shell glob) order. If one of the hook scripts exits with non-zero status, the remaining hook scripts are skipped, and the task is marked "failed" on the Workflow page so you know to check it. All stdout and stderr output from all the hooks that ran are displayed in the task log on the Workflow page.
 
-Note that hook scripts must have the Unix "executable" bit in order to run. If your script has the execute bit set when you first add it to Git or SVN, you're all set. Otherwise, to set the execute bit to a file already in your Git repo:
+Note that hook scripts must have the Unix "executable" bit in order to run. If your script has the execute bit set when you first add it to Git, you're all set. Otherwise, to set the execute bit to a file already in your Git repo:
 
     chmod a+x ./my-hook.sh
     git add ./my-hook.sh
     git commit -m 'Add execute bit to my-hook.sh'
     git push
 
-If you are using SVN:
-
-    chmod a+x ./my-hook.sh
-    svn propset svn:executable ON ./my-hook.sh
-    svn commit -m 'Add execute bit to my-hook.sh'
 
 ## Sample scripts
 
@@ -120,7 +104,7 @@ Usage: post-code-deploy site target-env source-branch deployed-tag repo-url repo
 * source-branch: The code branch or tag being deployed. See below.
 * deployed-tag: The code branch or tag being deployed. See below.
 * repo-url: The URL of your code repository.
-* repo-type: The version control system your site is using; "git" or "svn".
+* repo-type: The version control system your site is using; "git".
 
 The meaning of source-branch and deployed-tag depends on whether you use drag-drop to move code from one environment to another or whether you select a new branch or tag for an environment from the Code drop-down list:
 
@@ -138,8 +122,6 @@ The post-code-update hook runs in response to code commits. When you push commit
 
 The arguments for post-code-update are the same as for post-code-deploy, with the source-branch and deployed-tag arguments both set to the name of the environment receiving the new code.
 
-post-code-update only runs if your site is using a Git repository. It does not support SVN.
-
 ### post-db-copy
 
 The post-db-copy hook is run whenever you use the Workflow page to copy a database from one environment to another.
@@ -151,7 +133,7 @@ Usage: post-db-copy site target-env db-name source-env
 * db-name: The name of the database that was copied. See below.
 * source-env: The environment from which the database was copied.
 
-db-name is not the actual MySQL database name but rather the common name for the database in all environments. Use the drush ah-sql-cli  to connect to the actual MySQL database, or use the drush ah-sql-connect command to convert the site name and target environment into the specific MySQL database name and credentials. (The drush sql-cli and sql-connect commands work too, but only if your Drupal installation is set up correctly.)
+db-name is not the actual MySQL database name but rather the common name for the database in all environments. Use the drush ah-sql-cli to connect to the actual MySQL database, or use the drush ah-sql-connect command to convert the site name and target environment into the specific MySQL database name and credentials. (The drush sql-cli and sql-connect commands work too, but only if your Drupal installation is set up correctly.)
 
 Example: To "scrub" your production database by removing all user accounts every time it is copied into your Stage environment, put this script into /hooks/test/post-db-copy/delete-users.sh:
 
