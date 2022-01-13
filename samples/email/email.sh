@@ -13,6 +13,11 @@
 # Enter the email(s) you want to send notifications to
 MAILTO=address@example.com
 
+# Enter the email(s) you want to send notifications from. This must be from
+# a domain listed in your Platform Email settings.
+# https://docs.acquia.com/cloud-platform/manage/platform-email/
+MAILFROM=fromaddress@example.com
+
 site="$1"
 target_env="$2"
 source_branch="$3"
@@ -26,4 +31,4 @@ else
     MSG="$site.$target_env: Deployed $deployed_tag."
 fi
 
-echo "$MSG" | mail -s "$MSG" "$MAILTO"
+echo "$MSG" | mail -s "$MSG" "$MAILTO" -r "$MAILFROM"
