@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Cloud Hook: post-site-instance-duplicate
+#
+# The post-site-instance-duplicate hook is run after a site instance has been
+# duplicated to create a new environment. This allows you to perform
+# post-duplication configuration, data scrubbing, or environment-specific setup.
+#
+# Usage: post-site-instance-duplicate site target-env source-env
+
+site="$1"
+target_env="$2"
+source_env="$3"
+
+echo "$site.$target_env: Site instance duplicated from $source_env."

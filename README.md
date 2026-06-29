@@ -82,6 +82,10 @@ Sample scripts currently include:
 * post-code-update.tmpl: Template for post-code-update hook scripts.
 * post-db-copy.tmpl: Template for post-db-copy hook scripts.
 * post-files-copy.tmpl: Template for post-files-copy hook scripts.
+* pre-site-wipe.tmpl: Template for pre-site-wipe hook scripts.
+* post-site-wipe.tmpl: Template for post-site-wipe hook scripts.
+* post-site-instance-duplicate.tmpl: Template for post-site-instance-duplicate hook scripts.
+* post-site-associate.tmpl: Template for post-site-associate hook scripts.
 * update-db.sh: Run drush updatedb to perform database updates.
 * db-scrub.sh: Scrub important information from a Drupal database.
 * drupal-tests.sh: Run Drupal simpletests.
@@ -156,3 +160,40 @@ Usage: post-files-copy site target-env source-env
 Example: When you use the Workflow page to drag files from Prod to Dev, the files-copy hook will be run like:
 
     post-files-copy mysite prod dev
+
+### pre-site-wipe
+
+The pre-site-wipe hook is run before a site's database and files are wiped from an environment. This allows you to perform backups or other preparatory actions before the site data is removed.
+
+Usage: pre-site-wipe site target-env
+
+* site: The site name. This is the same as the Acquia Cloud username for the site.
+* target-env: The environment from which the site will be wiped.
+
+### post-site-wipe
+
+The post-site-wipe hook is run after a site's database and files have been wiped from an environment. This allows you to perform cleanup, notifications, or initialization of a fresh environment.
+
+Usage: post-site-wipe site target-env
+
+* site: The site name. This is the same as the Acquia Cloud username for the site.
+* target-env: The environment from which the site was wiped.
+
+### post-site-instance-duplicate
+
+The post-site-instance-duplicate hook is run after a site instance has been duplicated to create a new environment. This allows you to perform post-duplication configuration, data scrubbing, or environment-specific setup.
+
+Usage: post-site-instance-duplicate site target-env source-env
+
+* site: The site name. This is the same as the Acquia Cloud username for the site.
+* target-env: The environment that was created from the duplication.
+* source-env: The environment from which the site was duplicated.
+
+### post-site-associate
+
+The post-site-associate hook is run after a site has been associated with an environment. This allows you to perform initialization tasks, configure environment-specific settings, or set up integrations.
+
+Usage: post-site-associate site target-env
+
+* site: The site name. This is the same as the Acquia Cloud username for the site.
+* target-env: The environment with which the site was associated.

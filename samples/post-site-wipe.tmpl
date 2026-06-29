@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Cloud Hook: post-site-wipe
+#
+# The post-site-wipe hook is run after a site's database and files have been
+# wiped from an environment. This allows you to perform cleanup, notifications,
+# or initialization of a fresh environment.
+#
+# Usage: post-site-wipe site target-env
+
+site="$1"
+target_env="$2"
+
+echo "$site.$target_env: Site wipe completed."

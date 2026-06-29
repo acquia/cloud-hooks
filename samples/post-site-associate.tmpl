@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Cloud Hook: post-site-associate
+#
+# The post-site-associate hook is run after a site has been associated with
+# an environment. This allows you to perform initialization tasks, configure
+# environment-specific settings, or set up integrations.
+#
+# Usage: post-site-associate site target-env
+
+site="$1"
+target_env="$2"
+
+echo "$site.$target_env: Site associated with environment."
