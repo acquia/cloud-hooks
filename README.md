@@ -165,35 +165,36 @@ Example: When you use the Workflow page to drag files from Prod to Dev, the file
 
 The pre-site-wipe hook is run before a site's database and files are wiped from an environment. This allows you to perform backups or other preparatory actions before the site data is removed.
 
-Usage: pre-site-wipe site target-env
+Usage: pre-site-wipe app-name stage
 
-* site: The site name. This is the same as the Acquia Cloud username for the site.
-* target-env: The environment from which the site will be wiped.
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) from which the site will be wiped.
 
 ### post-site-wipe
 
 The post-site-wipe hook is run after a site's database and files have been wiped from an environment. This allows you to perform cleanup, notifications, or initialization of a fresh environment.
 
-Usage: post-site-wipe site target-env
+Usage: post-site-wipe app-name stage
 
-* site: The site name. This is the same as the Acquia Cloud username for the site.
-* target-env: The environment from which the site was wiped.
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) from which the site was wiped.
 
 ### post-site-instance-duplicate
 
 The post-site-instance-duplicate hook is run after a site instance has been duplicated to create a new environment. This allows you to perform post-duplication configuration, data scrubbing, or environment-specific setup.
 
-Usage: post-site-instance-duplicate site target-env source-env
+Usage: post-site-instance-duplicate app-name stage source-site-name
 
-* site: The site name. This is the same as the Acquia Cloud username for the site.
-* target-env: The environment that was created from the duplication.
-* source-env: The environment from which the site was duplicated.
+* app-name: The application name for the target site.
+* stage: The environment stage (dev, test, or prod) of the target environment.
+* source-site-name: The name of the source site that was duplicated.
 
 ### post-site-associate
 
 The post-site-associate hook is run after a site has been associated with an environment. This allows you to perform initialization tasks, configure environment-specific settings, or set up integrations.
 
-Usage: post-site-associate site target-env
+Usage: post-site-associate app-name stage site-name
 
-* site: The site name. This is the same as the Acquia Cloud username for the site.
-* target-env: The environment with which the site was associated.
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) with which the site was associated.
+* site-name: The name of the site that was associated.

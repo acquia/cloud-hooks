@@ -6,10 +6,10 @@
 # duplicated to create a new environment. This allows you to perform
 # post-duplication configuration, data scrubbing, or environment-specific setup.
 #
-# Usage: post-site-instance-duplicate site target-env source-env
+# Usage: post-site-instance-duplicate app-name stage source-site-name
 
-site="$1"
-target_env="$2"
-source_env="$3"
+app_name="$1"
+stage="$2"
+source_site_name="$3"
 
-echo "$site.$target_env: Site instance duplicated from $source_env."
+echo "$app_name.$stage: Site instance duplicated from $source_site_name."
