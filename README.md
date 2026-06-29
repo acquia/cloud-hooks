@@ -178,7 +178,7 @@ Usage: pre-site-code-deploy site target-env source-branch deployed-tag repo-url 
 
 Example: When deploying code to a site via the Cloud UI or API, the pre-site-code-deploy hook will be run like:
 
-    pre-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.devcloud.hosting.acquia.com:mysite.git git siteName ""
+    pre-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.prod.hosting.acquia.com:mysite.git git mysitename ""
 
 ### post-site-code-deploy
 
@@ -199,4 +199,4 @@ The extra-args parameter allows you to pass custom parameters from the Cloud UI 
 
 Example: When deploying code to a site with extra arguments requesting database updates, the post-site-code-deploy hook will be run like:
 
-    post-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.devcloud.hosting.acquia.com:mysite.git git siteName "update-db"
+    post-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.prod.hosting.acquia.com:mysite.git git mysitename "update-db"
