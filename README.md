@@ -84,6 +84,10 @@ Sample scripts currently include:
 * post-files-copy.tmpl: Template for post-files-copy hook scripts.
 * pre-site-code-deploy.tmpl: Template for pre-site-code-deploy hook scripts.
 * post-site-code-deploy.tmpl: Template for post-site-code-deploy hook scripts.
+* pre-site-wipe.tmpl: Template for pre-site-wipe hook scripts.
+* post-site-wipe.tmpl: Template for post-site-wipe hook scripts.
+* post-site-instance-duplicate.tmpl: Template for post-site-instance-duplicate hook scripts.
+* post-site-associate.tmpl: Template for post-site-associate hook scripts.
 * update-db.sh: Run drush updatedb to perform database updates.
 * db-scrub.sh: Scrub important information from a Drupal database.
 * maintenance-mode-enable.sh: Enable Drupal maintenance mode before site deployment.
@@ -200,3 +204,41 @@ The extra-args parameter allows you to pass custom parameters from the Cloud UI 
 Example: When deploying code to a site with extra arguments requesting database updates, the post-site-code-deploy hook will be run like:
 
     post-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.prod.hosting.acquia.com:mysite.git git mysitename "update-db"
+
+### pre-site-wipe
+
+The pre-site-wipe hook is run before a site's database and files are wiped from an environment. This allows you to perform backups or other preparatory actions before the site data is removed.
+
+Usage: pre-site-wipe app-name stage
+
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) from which the site will be wiped.
+
+### post-site-wipe
+
+The post-site-wipe hook is run after a site's database and files have been wiped from an environment. This allows you to perform cleanup, notifications, or initialization of a fresh environment.
+
+Usage: post-site-wipe app-name stage
+
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) from which the site was wiped.
+
+### post-site-instance-duplicate
+
+The post-site-instance-duplicate hook is run after a site instance has been duplicated to create a new environment. This allows you to perform post-duplication configuration, data scrubbing, or environment-specific setup.
+
+Usage: post-site-instance-duplicate app-name stage source-site-name
+
+* app-name: The application name for the target site.
+* stage: The environment stage (dev, test, or prod) of the target environment.
+* source-site-name: The name of the source site that was duplicated.
+
+### post-site-associate
+
+The post-site-associate hook is run after a site has been associated with an environment. This allows you to perform initialization tasks, configure environment-specific settings, or set up integrations.
+
+Usage: post-site-associate app-name stage site-name
+
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) with which the site was associated.
+* site-name: The name of the site that was associated.
