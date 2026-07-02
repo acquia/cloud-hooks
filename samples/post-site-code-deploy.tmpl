@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Cloud Hook: post-site-code-deploy
+#
+# The post-site-code-deploy hook is run after code has been deployed to a
+# specific site via the Acquia Cloud UI or API. This is a site-level hook
+# that allows you to perform post-deployment tasks, such as disabling
+# maintenance mode or running database updates. See ../README.md for details.
+#
+# Usage: post-site-code-deploy site target-env source-branch deployed-tag repo-url
+#                              repo-type site-name extra-args
+
+site="$1"
+target_env="$2"
+source_branch="$3"
+deployed_tag="$4"
+repo_url="$5"
+repo_type="$6"
+site_name="$7"
+extra_args="$8"
+
+echo "$site.$target_env: Completed deployment of $deployed_tag to site $site_name."
