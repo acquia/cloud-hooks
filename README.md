@@ -82,12 +82,16 @@ Sample scripts currently include:
 * post-code-update.tmpl: Template for post-code-update hook scripts.
 * post-db-copy.tmpl: Template for post-db-copy hook scripts.
 * post-files-copy.tmpl: Template for post-files-copy hook scripts.
+* pre-site-code-deploy.tmpl: Template for pre-site-code-deploy hook scripts.
+* post-site-code-deploy.tmpl: Template for post-site-code-deploy hook scripts.
 * pre-site-wipe.tmpl: Template for pre-site-wipe hook scripts.
 * post-site-wipe.tmpl: Template for post-site-wipe hook scripts.
 * post-site-instance-duplicate.tmpl: Template for post-site-instance-duplicate hook scripts.
 * post-site-associate.tmpl: Template for post-site-associate hook scripts.
 * update-db.sh: Run drush updatedb to perform database updates.
 * db-scrub.sh: Scrub important information from a Drupal database.
+* maintenance-mode-enable.sh: Enable Drupal maintenance mode before site deployment.
+* maintenance-mode-disable-and-update.sh: Disable maintenance mode and optionally run database updates after site deployment.
 * drupal-tests.sh: Run Drupal simpletests.
 * rollback.sh: Run designated simpletest testing against a branch/tag and rollback on failure.
 * newrelic.sh: Example of Acquia Hosting Cloud Hook to notify New Relic API of code version deployments.
@@ -160,6 +164,46 @@ Usage: post-files-copy site target-env source-env
 Example: When you use the Workflow page to drag files from Prod to Dev, the files-copy hook will be run like:
 
     post-files-copy mysite prod dev
+
+### pre-site-code-deploy
+
+The pre-site-code-deploy hook is run before code is deployed to a specific site via the Acquia Cloud UI or API. This is a site-level deployment hook that allows you to prepare a site for deployment, such as enabling maintenance mode.
+
+Usage: pre-site-code-deploy site target-env source-branch deployed-tag repo-url repo-type site-name extra-args
+
+* site: The site name. This is the same as the Acquia Cloud username for the site.
+* target-env: The environment to which code is being deployed.
+* source-branch: The code branch or tag being deployed.
+* deployed-tag: The code branch or tag being deployed.
+* repo-url: The URL of your code repository.
+* repo-type: The version control system your site is using; "git".
+* site-name: The specific site name being deployed to.
+* extra-args: Optional parameters passed from the Acquia Cloud UI or API. Empty string if none provided.
+
+Example: When deploying code to a site via the Cloud UI or API, the pre-site-code-deploy hook will be run like:
+
+    pre-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.prod.hosting.acquia.com:mysite.git git mysitename ""
+
+### post-site-code-deploy
+
+The post-site-code-deploy hook is run after code has been deployed to a specific site via the Acquia Cloud UI or API. This is a site-level deployment hook that allows you to perform post-deployment tasks, such as disabling maintenance mode or running database updates.
+
+Usage: post-site-code-deploy site target-env source-branch deployed-tag repo-url repo-type site-name extra-args
+
+* site: The site name. This is the same as the Acquia Cloud username for the site.
+* target-env: The environment to which code was deployed.
+* source-branch: The code branch or tag that was deployed.
+* deployed-tag: The code branch or tag that was deployed.
+* repo-url: The URL of your code repository.
+* repo-type: The version control system your site is using; "git".
+* site-name: The specific site name that was deployed to.
+* extra-args: Optional parameters passed from the Acquia Cloud UI or API. Empty string if none provided.
+
+The extra-args parameter allows you to pass custom parameters from the Cloud UI or API to trigger specific behaviors in your hook scripts, such as running database updates.
+
+Example: When deploying code to a site with extra arguments requesting database updates, the post-site-code-deploy hook will be run like:
+
+    post-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.prod.hosting.acquia.com:mysite.git git mysitename "update-db"
 
 ### pre-site-wipe
 
