@@ -84,8 +84,8 @@ Sample scripts currently include:
 * post-files-copy.tmpl: Template for post-files-copy hook scripts.
 * pre-site-code-deploy.tmpl: Template for pre-site-code-deploy hook scripts.
 * post-site-code-deploy.tmpl: Template for post-site-code-deploy hook scripts.
-* pre-site-wipe.tmpl: Template for pre-site-wipe hook scripts.
-* post-site-wipe.tmpl: Template for post-site-wipe hook scripts.
+* pre-site-reset-data.tmpl: Template for pre-site-reset-data hook scripts.
+* post-site-reset-data.tmpl: Template for post-site-reset-data hook scripts.
 * post-site-instance-duplicate.tmpl: Template for post-site-instance-duplicate hook scripts.
 * post-site-associate.tmpl: Template for post-site-associate hook scripts.
 * update-db.sh: Run drush updatedb to perform database updates.
@@ -205,23 +205,23 @@ Example: When deploying code to a site with extra arguments requesting database 
 
     post-site-code-deploy mysite prod master tags/2026-06-29 mysite@svn-3.prod.hosting.acquia.com:mysite.git git mysitename "update-db"
 
-### pre-site-wipe
+### pre-site-reset-data
 
-The pre-site-wipe hook is run before a site's database and files are wiped from an environment. This allows you to perform backups or other preparatory actions before the site data is removed.
+The pre-site-reset-data hook is run before a site's database and files are reset from an environment. This allows you to perform backups or other preparatory actions before the site data is removed.
 
-Usage: pre-site-wipe app-name stage
-
-* app-name: The application name for the site.
-* stage: The environment stage (dev, test, or prod) from which the site will be wiped.
-
-### post-site-wipe
-
-The post-site-wipe hook is run after a site's database and files have been wiped from an environment. This allows you to perform cleanup, notifications, or initialization of a fresh environment.
-
-Usage: post-site-wipe app-name stage
+Usage: pre-site-reset-data app-name stage
 
 * app-name: The application name for the site.
-* stage: The environment stage (dev, test, or prod) from which the site was wiped.
+* stage: The environment stage (dev, test, or prod) from which the site's data will be reset.
+
+### post-site-reset-data
+
+The post-site-reset-data hook is run after a site's database and files have been reset from an environment. This allows you to perform cleanup, notifications, or initialization of a fresh environment.
+
+Usage: post-site-reset-data app-name stage
+
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) from which the site's data was reset.
 
 ### post-site-instance-duplicate
 
