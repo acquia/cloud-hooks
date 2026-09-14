@@ -209,19 +209,21 @@ Example: When deploying code to a site with extra arguments requesting database 
 
 The pre-site-reset-data hook is run before a site's database and files are reset from an environment. This allows you to perform backups or other preparatory actions before the site data is removed.
 
-Usage: pre-site-reset-data app-name stage
+Usage: pre-site-reset-data app-name stage site-name
 
 * app-name: The application name for the site.
 * stage: The environment stage (dev, test, or prod) from which the site's data will be reset.
+* site-name: The name of the site whose data will be reset.
 
 ### post-site-reset-data
 
 The post-site-reset-data hook is run after a site's database and files have been reset from an environment. This allows you to perform cleanup, notifications, or initialization of a fresh environment.
 
-Usage: post-site-reset-data app-name stage
+Usage: post-site-reset-data app-name stage site-name
 
 * app-name: The application name for the site.
 * stage: The environment stage (dev, test, or prod) from which the site's data was reset.
+* site-name: The name of the site whose data was reset.
 
 ### post-site-instance-duplicate
 
