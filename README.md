@@ -229,11 +229,18 @@ Usage: post-site-reset-data app-name stage site-name
 
 The post-site-instance-duplicate hook is run after a site instance has been duplicated to create a new environment. This allows you to perform post-duplication configuration, data scrubbing, or environment-specific setup.
 
-Usage: post-site-instance-duplicate app-name stage source-site-name
+Usage: post-site-instance-duplicate app-name stage source-site-name [extra-args...]
 
 * app-name: The application name for the target site.
 * stage: The environment stage (dev, test, or prod) of the target environment.
 * source-site-name: The name of the source site that was duplicated.
+* extra-args: Optional parameters passed from the Acquia Cloud UI or API. Can be used to pass custom flags or configuration to your hook script.
+
+The extra-args parameter allows you to pass custom parameters when triggering site instance duplication via the Cloud API to control specific behaviors in your hook scripts, such as data scrubbing options or environment-specific configurations.
+
+Example: When duplicating a site instance with an extra argument for data scrubbing, the post-site-instance-duplicate hook will be run like:
+
+    post-site-instance-duplicate myapp prod mysourcesitename scrub-emails
 
 ### post-site-associate
 
