@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Cloud Hook: pre-site-disassociate
+#
+# The pre-site-disassociate hook is run when a user disassociates a site from
+# an environment, before the site instance is marked for deletion. Use it to
+# archive data or confirm that external systems are ready for the teardown.
+#
+# If this hook exits with a non-zero status, the disassociation is abandoned
+# and the site instance is left associated and serving, unchanged. There is no
+# way to force a disassociation past a failing pre-site-disassociate hook.
+#
+# Usage: pre-site-disassociate app-name stage site-name grace-period-seconds
+
+app_name="$1"
+stage="$2"
+site_name="$3"
+grace_period_seconds="$4"
+
+echo "$app_name.$stage: Preparing to disassociate site $site_name (data retained for ${grace_period_seconds}s)."

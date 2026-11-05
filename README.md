@@ -88,6 +88,8 @@ Sample scripts currently include:
 * post-site-reset-data.tmpl: Template for post-site-reset-data hook scripts.
 * post-site-instance-duplicate.tmpl: Template for post-site-instance-duplicate hook scripts.
 * post-site-associate.tmpl: Template for post-site-associate hook scripts.
+* pre-site-disassociate.tmpl: Template for pre-site-disassociate hook scripts.
+* post-site-disassociate.tmpl: Template for post-site-disassociate hook scripts.
 * update-db.sh: Run drush updatedb to perform database updates.
 * db-scrub.sh: Scrub important information from a Drupal database.
 * maintenance-mode-enable.sh: Enable Drupal maintenance mode before site deployment.
@@ -246,8 +248,52 @@ Example: When duplicating a site instance with an extra argument for data scrubb
 
 The post-site-associate hook is run after a site has been associated with an environment. This allows you to perform initialization tasks, configure environment-specific settings, or set up integrations.
 
-Usage: post-site-associate app-name stage site-name
+Usage: post-site-associate app-name stage site-name association-type
 
 * app-name: The application name for the site.
 * stage: The environment stage (dev, test, or prod) with which the site was associated.
 * site-name: The name of the site that was associated.
+* association-type: How the site instance came to exist. One of `new` (a new association), `restore` (a recently disassociated site instance was restored, or a soft-deleted site was restored), or `reassociate` (a recently disassociated non-production site instance was reassociated without data). Hooks that read only the first three arguments are unaffected.
+
+The hook runs once per site instance, for every route that produces one. Because it runs again on restore and reassociation, write it to be idempotent: check whether an external resource exists before creating it, or upsert instead of create. This lets the hook rebuild whatever post-site-disassociate tore down.
+
+When a site instance is reassociated without data, the hooks run in this order: pre-site-reset-data, the previous database and files are deleted, post-site-reset-data, then post-site-associate with `reassociate`. If pre-site-reset-data fails, the reassociation is abandoned and the site instance stays disassociated with its data retained.
+
+If post-site-associate fails, the association stays in place and the failure is recorded in the task log.
+
+Example: When a recently disassociated site instance is restored, the post-site-associate hook will be run like:
+
+    post-site-associate myapp prod mysitename restore
+
+### pre-site-disassociate
+
+The pre-site-disassociate hook is run when a user disassociates a site from an environment, before the site instance is marked for deletion. This allows you to archive data or confirm that external systems are ready for the teardown.
+
+Usage: pre-site-disassociate app-name stage site-name grace-period-seconds
+
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) from which the site is being disassociated.
+* site-name: The name of the site being disassociated.
+* grace-period-seconds: How long the site instance's database and files are retained before they are permanently deleted: 7 days for non-production and 30 days for production, in seconds.
+
+If the hook exits with a non-zero status, or does not finish within the execution time limit for site lifecycle hooks, the disassociation is abandoned. The site instance stays associated and serving, with its database and files unchanged, and the task log records which hook failed and its output. There is no way to force a disassociation past a failing pre-site-disassociate hook. Fix the hook and disassociate again; the hook runs again from the start.
+
+### post-site-disassociate
+
+The post-site-disassociate hook is run when a user disassociates a site from an environment, right after the site instance is marked for deletion and stops serving. This allows you to remove external registrations, such as webhooks, for a site instance that has gone away.
+
+Usage: post-site-disassociate app-name stage site-name grace-period-seconds
+
+* app-name: The application name for the site.
+* stage: The environment stage (dev, test, or prod) from which the site was disassociated.
+* site-name: The name of the site that was disassociated.
+* grace-period-seconds: How long the site instance's database and files are retained before they are permanently deleted.
+
+Both disassociation hooks run when the user disassociates the site instance. Neither runs again when the grace period ends and the site instance is permanently deleted, so the database and files are still retained, and can be restored, when this hook runs. Restoring the site instance runs post-site-associate.
+
+A failure in this hook does not reverse the disassociation. The failure is recorded in the task log, the hook is not run again, and the permanent deletion still happens on schedule. Do work that must succeed in pre-site-disassociate instead.
+
+Example: When a site instance is disassociated from a production environment, the hooks will be run like:
+
+    pre-site-disassociate myapp prod mysitename 2592000
+    post-site-disassociate myapp prod mysitename 2592000
